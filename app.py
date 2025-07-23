@@ -60,7 +60,7 @@ if st.session_state.results:
     df = pd.DataFrame(st.session_state.results, columns=["No.", "銘文", "概要", "所見"])
     # No列の桁区切り（カンマ）を除去してから整数化（エラーを防ぐ）
     df["No."] = df["No."].astype(str).str.replace(",", "").astype(int)
-    st.dataframe(df)
+    st.table(df)
 
     # --- GPTに送るボタン ---
     if st.button("ChatGPTに所見と概要を要約してもらう"):
