@@ -41,8 +41,8 @@ for row in results:
 # 4. GPT呼び出し
 openai.api_key = st.secrets["OPENAI_API_KEY"]
 
-response = openai.chat.completions.create(
-    model="gpt-4o",
+response = openai.ChatCompletion.create(
+    model="gpt-4",
     messages=[
         {"role": "system", "content": "あなたは刀剣の専門家です"},
         {"role": "user", "content": prompt}
