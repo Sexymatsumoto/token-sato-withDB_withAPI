@@ -20,9 +20,9 @@ length = st.slider("刃長（±cm）", 0.0, 10.0, 2.0)
 # 2. SQL生成 → Supabaseに問い合わせ
 cursor = conn.cursor()
 sql = f"""SELECT * FROM swords WHERE
-    (時代 = '{period}' OR '{period}' = 'すべて') AND
-    (国 = '{country}' OR '{country}' = 'すべて') AND
-    ABS(刃長 - 63.5) <= {length}
+    ("時代" = '{period}' OR '{period}' = 'すべて') AND
+    ("国" = '{country}' OR '{country}' = 'すべて') AND
+    ABS("刃長" - 63.5) <= {length}
     LIMIT 10;
 """
 cursor.execute(sql)
