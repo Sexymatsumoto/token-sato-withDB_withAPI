@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import os
 import psycopg2
-from openai
+import openai
 
 try:
     conn = psycopg2.connect(
