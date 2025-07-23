@@ -2,6 +2,17 @@ import streamlit as st
 import openai
 import pandas as pd
 import psycopg2  # Supabaseへの接続用
+from dotenv import load_dotenv
+
+load_dotenv()
+
+conn = psycopg2.connect(
+    host=os.getenv("SUPABASE_HOST"),
+    port=os.getenv("SUPABASE_PORT"),
+    dbname=os.getenv("SUPABASE_DB"),
+    user=os.getenv("SUPABASE_USER"),
+    password=os.getenv("SUPABASE_PASSWORD")
+)
 
 # 1. UI（Streamlit）
 period = st.selectbox("時代", ["すべて", "江戸", "室町", "鎌倉"])
@@ -9,7 +20,6 @@ country = st.selectbox("国", ["すべて", "山城", "備前", "薩摩"])
 length = st.slider("刃長（±cm）", 0.0, 10.0, 2.0)
 
 # 2. SQL生成 → Supabaseに問い合わせ
-conn = psycopg2.connect(...)  # Supabase接続
 cursor = conn.cursor()
 sql = f"""SELECT * FROM swords WHERE
     (時代 = '{period}' OR '{period}' = 'すべて') AND
