@@ -44,7 +44,7 @@ if st.button("この条件で検索"):
     where_clause = " AND ".join(conditions)
 
     sql = f"""
-        SELECT * FROM swords
+        SELECT "No.", "銘文", "概要", "所見" FROM swords
         WHERE {where_clause}
         LIMIT 10;
     """
@@ -54,7 +54,7 @@ if st.button("この条件で検索"):
 
 # --- 結果表示（検索済みのときのみ） ---
 if st.session_state.results:
-    df = pd.DataFrame(st.session_state.results, columns=["No", "銘文", "概要", "所見"])
+    df = pd.DataFrame(st.session_state.results, columns=["No.", "銘文", "概要", "所見"])
     st.dataframe(df)
 
     # --- GPTに送るボタン ---
