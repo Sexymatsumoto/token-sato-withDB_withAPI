@@ -1,23 +1,16 @@
 import streamlit as st
 import openai
 import pandas as pd
-import psycopg2  # Supabaseへの接続用
 import os
-from dotenv import load_dotenv
+import psycopg
 
-load_dotenv()
-
-try:
-    conn = psycopg2.connect(
-        host=st.secrets["SUPABASE_HOST"],
-        port=st.secrets["SUPABASE_PORT"],
-        dbname=st.secrets["SUPABASE_DB"],
-        user=st.secrets["SUPABASE_USER"],
-        password=st.secrets["SUPABASE_PASSWORD"]
-    )
-except Exception as e:
-    st.error(f"接続エラー: {e}")
-    st.stop()
+conn = psycopg.connect(
+    host=st.secrets["SUPABASE_HOST"],
+    port=int(st.secrets["SUPABASE_PORT"]),
+    dbname=st.secrets["SUPABASE_DB"],
+    user=st.secrets["SUPABASE_USER"],
+    password=st.secrets["SUPABASE_PASSWORD"]
+)
 
 # 1. UI（Streamlit）
 period = st.selectbox("時代", ["すべて", "江戸", "室町", "鎌倉"])
