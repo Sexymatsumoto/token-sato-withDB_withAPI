@@ -55,9 +55,11 @@ if st.button("この条件で検索"):
 # --- 結果表示（検索済みのときのみ） ---
 if st.session_state.results:
     # No列（1列目）を整数に変換して桁区切りなしで表示
-    df.iloc[:, 0] = df.iloc[:, 0].astype(int)
+#    df.iloc[:, 0] = df.iloc[:, 0].astype(int)
     
     df = pd.DataFrame(st.session_state.results, columns=["No.", "銘文", "概要", "所見"])
+    # No列の桁区切り（カンマ）を除去してから整数化（エラーを防ぐ）
+    df["No"] = df["No"].astype(str).str.replace(",", "").astype(int)
     st.dataframe(df)
 
     # --- GPTに送るボタン ---
