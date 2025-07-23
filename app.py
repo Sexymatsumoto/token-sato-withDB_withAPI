@@ -1,3 +1,9 @@
+import streamlit as st
+import pandas as pd
+import os
+import psycopg2
+import openai 
+
 # --- 入力UI ---
 period = st.selectbox("時代", ["すべて", "江戸", "室町", "鎌倉"])
 country = st.selectbox("国", ["すべて", "山城", "備前", "薩摩"])
