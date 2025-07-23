@@ -4,6 +4,20 @@ import os
 import psycopg2
 import openai 
 
+# Supabase接続
+try:
+    conn = psycopg2.connect(
+        host=st.secrets["SUPABASE_HOST"],
+        port=int(st.secrets["SUPABASE_PORT"]),
+        dbname=st.secrets["SUPABASE_DB"],
+        user=st.secrets["SUPABASE_USER"],
+        password=st.secrets["SUPABASE_PASSWORD"]
+    )
+except Exception as e:
+    st.error("接続エラーです。st.secretsの値をご確認ください。")
+    st.text(str(e))
+    st.stop()
+    
 # --- 入力UI ---
 period = st.selectbox("時代", ["すべて", "江戸", "室町", "鎌倉"])
 country = st.selectbox("国", ["すべて", "山城", "備前", "薩摩"])
