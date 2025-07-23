@@ -4,13 +4,18 @@ import pandas as pd
 import os
 import psycopg2
 
-conn = psycopg2.connect(
-    host=st.secrets["SUPABASE_HOST"],
-    port=int(st.secrets["SUPABASE_PORT"]),
-    dbname=st.secrets["SUPABASE_DB"],
-    user=st.secrets["SUPABASE_USER"],
-    password=st.secrets["SUPABASE_PASSWORD"]
-)
+try:
+    conn = psycopg2.connect(
+        host=st.secrets["SUPABASE_HOST"],
+        port=int(st.secrets["SUPABASE_PORT"]),
+        dbname=st.secrets["SUPABASE_DB"],
+        user=st.secrets["SUPABASE_USER"],
+        password=st.secrets["SUPABASE_PASSWORD"]
+    )
+except Exception as e:
+    st.error("接続エラーです。st.secretsの値をご確認ください。")
+    st.text(str(e))  # ←伏せられてないローカルで実行すれば表示される
+    st.stop()
 
 # 1. UI（Streamlit）
 period = st.selectbox("時代", ["すべて", "江戸", "室町", "鎌倉"])
