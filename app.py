@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import os
 import psycopg2
-import openai
+from openai import OpenAI
 
 try:
     conn = psycopg2.connect(
@@ -39,9 +39,9 @@ for row in results:
     prompt += f"No: {row[0]}\n銘文: {row[1]}\n概要: {row[2]}\n所見: {row[3]}\n\n"
 
 # 4. GPT呼び出し
-openai.api_key = st.secrets["OPENAI_API_KEY"]
+client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 
-response = openai.ChatCompletion.create(
+response = client.chat.completions.create(
     model="gpt-4o",
     messages=[
         {"role": "system", "content": "あなたは刀剣の専門家です"},
@@ -49,4 +49,4 @@ response = openai.ChatCompletion.create(
     ]
 )
 
-st.markdown(response["choices"][0]["message"]["content"])
+st.markdown(response.choices[0].message.content)
