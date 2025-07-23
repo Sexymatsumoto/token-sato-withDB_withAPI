@@ -25,7 +25,7 @@ base_length = st.slider("刃長の基準値（cm）", 30.0, 100.0, 63.5, step=0.
 # 2. SQL生成 → Supabaseに問い合わせ
 cursor = conn.cursor()
 sql = f"""SELECT * FROM swords WHERE 
-    "時代" LIKE '%{period}%') AND
+    "時代" LIKE '%{period}%' AND
     "国" LIKE '%{country}%' AND
     "刃長"::float BETWEEN {base_length - 10} AND {base_length + 10}
     LIMIT 10;
