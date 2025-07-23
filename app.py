@@ -9,11 +9,11 @@ load_dotenv()
 
 try:
     conn = psycopg2.connect(
-        host=os.getenv("SUPABASE_HOST"),
-        port=os.getenv("SUPABASE_PORT"),
-        dbname=os.getenv("SUPABASE_DB"),
-        user=os.getenv("SUPABASE_USER"),
-        password=os.getenv("SUPABASE_PASSWORD")
+        host=st.secrets["SUPABASE_HOST"],
+        port=st.secrets["SUPABASE_PORT"],
+        dbname=st.secrets["SUPABASE_DB"],
+        user=st.secrets["SUPABASE_USER"],
+        password=st.secrets["SUPABASE_PASSWORD"]
     )
 except Exception as e:
     st.error(f"接続エラー: {e}")
