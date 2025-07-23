@@ -2,9 +2,9 @@ import streamlit as st
 import openai
 import pandas as pd
 import os
-import psycopg
+import psycopg2
 
-conn = psycopg.connect(
+conn = psycopg2.connect(
     host=st.secrets["SUPABASE_HOST"],
     port=int(st.secrets["SUPABASE_PORT"]),
     dbname=st.secrets["SUPABASE_DB"],
