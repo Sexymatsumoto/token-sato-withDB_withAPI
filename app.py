@@ -27,7 +27,7 @@ cursor = conn.cursor()
 sql = f"""SELECT * FROM swords WHERE
     ("時代" = '{period}' OR '{period}' = 'すべて') AND
     ("国" = '{country}' OR '{country}' = 'すべて') AND
-    ABS("刃長" - 63.5) <= {length}
+    ABS("刃長"::float - 63.5) <= {length}
     LIMIT 10;
 """
 cursor.execute(sql)
